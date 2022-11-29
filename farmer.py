@@ -16,3 +16,8 @@ if not os.path.exists(screenshots):
     os.mkdir(screenshots)
     print("Created the screenshots folder")
 
+# take a screenshot 
+result = device.screencap()
+with open(screenshots + "\screen.png", "wb") as fp:
+    fp.write(result)
+    print("screenshot taken!")
