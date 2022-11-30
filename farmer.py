@@ -8,6 +8,17 @@ pwd = os.getcwd()
 screenshots = pwd + "\screenshots"
 screenshot_path = screenshots + "\screen.png"
 
+# reference image paths
+path_start_button = pwd + "\\reference-images\start_btn.png"
+start_button = Image.open(path_start_button)
+path_start_mission_button = pwd + "\\reference-images\start_mission_btn.png"
+start_mission_button = Image.open(path_start_mission_button)
+path_exp_button = pwd + "\\reference-images\exp_btn.png"
+exp_button = Image.open(path_exp_button)
+
+
+
+# connect with the adb client
 client = Client(host="127.0.0.1", port=5037)
 device = client.device("emulator-5554")
 
@@ -25,16 +36,18 @@ with open(screenshot_path, "wb") as fp:
     fp.write(result)
     print("screenshot taken!")
 
-# check if the start button is on screen
-    # tap cords  (ON A 720P WINDOW)
-        # Start: 1120 670
-        # Team selection: 1100 500
+
+# tap cords  (ON A 720P WINDOW)
+    # Start: 1120 670
+    # Team selection: 1100 500
 
 
 image = Image.open(screenshot_path)
-print(image.size)
+
+crop_start_btn()
 
 
+crop_mission_start_btn()
 
 
 # basically, 
