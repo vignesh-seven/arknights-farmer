@@ -1,5 +1,7 @@
-import os
 import time
+start_time = time.time()
+
+import os
 import random
 from ppadb.client import Client
 from PIL import Image
@@ -47,6 +49,9 @@ with open(screenshot_path, "wb") as fp:
     # Start: 1120 670
     # Team selection: 1100 500
 
+# adb shell input tap x y
+# device.shell("echo hello world !")
+
 # load the screenshot image
 screenshot = Image.open(screenshot_path)
 
@@ -88,6 +93,9 @@ def check_three_stars():
         return True
 
 def click_button(coords):
+
+    print("--- %s seconds ---" % (time.time() - start_time))
+
     # wait for random time
     delay = random.randint(1, max_delay)
     time.sleep(delay)
@@ -101,9 +109,15 @@ def click_button(coords):
         random.randint(0, w) + coords[0],  
         random.randint(0, h) + coords[1]
     )
-    print(coords)
-    print(click_cords)
+    # print(coords)
+    # print(click_cords)
+    # CLICK!
+    device.shell(f"input tap {click_cords[0]} {click_cords[1]}")
 
+# while True:
+# print("waiting")
+# time.sleep(5)
+# print("running")
 if check_start_btn():
     print("click start button")
     click_button(start_button_coords)
