@@ -1,4 +1,6 @@
 import os
+import time
+import random
 from ppadb.client import Client
 from PIL import Image
 from pixelmatch.contrib.PIL import pixelmatch
@@ -7,6 +9,9 @@ os.system("adb start-server")
 pwd = os.getcwd()
 screenshots = pwd + "\screenshots"
 screenshot_path = screenshots + "\screen.png"
+
+# max delay between on-screen event and a click
+max_delay = 10
 
 # reference image paths
 path_start_button = pwd + "\\reference-images\start_btn.png"
@@ -82,14 +87,34 @@ def check_three_stars():
     if match == 0:
         return True
 
+def click_start_button(coords):
+    # wait for random time
+    delay = random.randint(1, max_delay)
+    print(delay)
+
+    # width and height of the buttons space
+    w = coords[2] - coords[0]   # x2 - x1
+    h = coords[3] - coords[1]   # y2 - y1
+
+    # adding some randomness to the click coords
+    click_cords = (
+        random.randint(0, w) + coords[0],  
+        random.randint(0, h) + coords[1]
+    )
+    print(coords)
+    print(click_cords)
+
 if check_start_btn():
     print("click start button")
-    # click_start_button()
+    click_start_button(start_button_coords)
+
 if check_start_mission_btn():
     print("click start mission button")
-    # click_start_mission_button()
+    click_start_button(start_mission_button_coords)
+
 if check_three_stars():
     print("three stars are visible")
+    click_start_button(three_stars_coords)
 
 
 
