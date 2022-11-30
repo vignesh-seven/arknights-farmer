@@ -87,10 +87,10 @@ def check_three_stars():
     if match == 0:
         return True
 
-def click_start_button(coords):
+def click_button(coords):
     # wait for random time
     delay = random.randint(1, max_delay)
-    print(delay)
+    time.sleep(delay)
 
     # width and height of the buttons space
     w = coords[2] - coords[0]   # x2 - x1
@@ -106,15 +106,15 @@ def click_start_button(coords):
 
 if check_start_btn():
     print("click start button")
-    click_start_button(start_button_coords)
+    click_button(start_button_coords)
 
 if check_start_mission_btn():
     print("click start mission button")
-    click_start_button(start_mission_button_coords)
+    click_button(start_mission_button_coords)
 
 if check_three_stars():
     print("three stars are visible")
-    click_start_button(three_stars_coords)
+    click_button(three_stars_coords)
 
 
 
