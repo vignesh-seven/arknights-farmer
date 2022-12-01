@@ -126,15 +126,17 @@ def the_loop():
 
     if check_btn(screenshot, start_button, start_button_coords):
         print("click start button")
-        # click_button(start_button_coords)
+        click_button(start_button_coords)
 
-    if check_btn(screenshot, start_mission_button, start_mission_button_coords):
+    elif check_btn(screenshot, start_mission_button, start_mission_button_coords):
         print("click start mission button")
-        # click_button(start_mission_button_coords)
+        click_button(start_mission_button_coords)
 
-    if check_btn(screenshot, three_stars, three_stars_coords):
+    elif check_btn(screenshot, three_stars, three_stars_coords):
         print("three stars are visible")
-        # click_button(three_stars_coords)
+        click_button(three_stars_coords)
+    else:
+        print("nothing found")
 
 while True:
     time.sleep(5)
