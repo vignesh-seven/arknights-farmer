@@ -16,6 +16,8 @@ screenshot_path = screenshots + "\screen.png"
 # reference image paths
 path_start_button = pwd + "\\reference-images\start_btn.png"
 start_button = Image.open(path_start_button)
+path_start_button_2 = pwd + "\\reference-images\start_btn_2.png"
+start_button_2 = Image.open(path_start_button_2)
 path_start_mission_button = pwd + "\\reference-images\start_mission_btn.png"
 start_mission_button = Image.open(path_start_mission_button)
 path_three_stars = pwd + "\\reference-images\\3-stars.png"
@@ -44,6 +46,8 @@ def check_btn(image, ref, ref_coords):
 
     # start searching for buttons on screen
     ref_c = image.crop(ref_coords)
+
+    # ref_c.show()
 
     match = pixelmatch(ref, ref_c, img_diff)
 
@@ -87,6 +91,10 @@ def the_loop():
         print("Start Button found")
         click_button(start_button_coords)
 
+    elif check_btn(screenshot, start_button_2, start_button_coords):
+        print("Start Button found")
+        click_button(start_button_coords)
+
     elif check_btn(screenshot, start_mission_button, start_mission_button_coords):
         print("Start Mission Button found")
         click_button(start_mission_button_coords)
@@ -97,6 +105,7 @@ def the_loop():
     else:
         print("Nothing found")
 
-while True:
-    time.sleep(5)
-    the_loop()
+the_loop()
+# while True:
+#     the_loop()
+#     time.sleep(5)
