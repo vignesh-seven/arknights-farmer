@@ -39,11 +39,8 @@ if not os.path.exists(screenshots):
     os.mkdir(screenshots)
     print("Created the screenshots folder")
 
-# take a screenshot 
-result = device.screencap()
-with open(screenshot_path, "wb") as fp:
-    fp.write(result)
-    print("screenshot taken!")
+
+    # print("screenshot taken!")
 
 # tap cords  (ON A 720P WINDOW)
     # Start: 1120 670
@@ -52,49 +49,47 @@ with open(screenshot_path, "wb") as fp:
 # adb shell input tap x y
 # device.shell("echo hello world !")
 
-# load the screenshot image
-screenshot = Image.open(screenshot_path)
+
 
 # check for start button
-def check_start_btn():
+def check_btn(image, ref, ref_coords):
     # mask for matching
-    img_diff = Image.new("RGBA", start_button.size)
+    img_diff = Image.new("RGBA", ref.size)
 
     # start searching for buttons on screen
-    start_button_c = screenshot.crop(start_button_coords)
+    ref_c = image.crop(ref_coords)
 
-    match = pixelmatch(start_button, start_button_c, img_diff)
+    match = pixelmatch(ref, ref_c, img_diff)
 
     if match == 0:
         return True
 
-def check_start_mission_btn():
-    # mask for matching
-    img_diff = Image.new("RGBA", start_mission_button.size)
+# def check_start_mission_btn():
+#     # mask for matching
+#     img_diff = Image.new("RGBA", start_mission_button.size)
 
-    # start searching for buttons on screen
-    start_mission_button_c = screenshot.crop(start_mission_button_coords)
+#     # start searching for buttons on screen
+#     start_mission_button_c = screenshot.crop(start_mission_button_coords)
 
-    match = pixelmatch(start_mission_button, start_mission_button_c, img_diff)
+#     match = pixelmatch(start_mission_button, start_mission_button_c, img_diff)
 
-    if match == 0:
-        return True
+#     if match == 0:
+#         return True
 
-def check_three_stars():
-    # mask for matching
-    img_diff = Image.new("RGBA", three_stars.size)
+# def check_three_stars():
+#     # mask for matching
+#     img_diff = Image.new("RGBA", three_stars.size)
 
-    # start searching for buttons on screen
-    three_stars_c = screenshot.crop(three_stars_coords)
+#     # start searching for buttons on screen
+#     three_stars_c = screenshot.crop(three_stars_coords)
 
-    match = pixelmatch(three_stars, three_stars_c, img_diff)
+#     match = pixelmatch(three_stars, three_stars_c, img_diff)
 
-    if match == 0:
-        return True
+#     if match == 0:
+#         return True
 
 def click_button(coords):
-
-    print("--- %s seconds ---" % (time.time() - start_time))
+    # print("--- %s seconds ---" % (time.time() - start_time))
 
     # wait for random time
     delay = random.randint(1, max_delay)
@@ -118,19 +113,30 @@ def click_button(coords):
 # print("waiting")
 # time.sleep(5)
 # print("running")
-if check_start_btn():
-    print("click start button")
-    click_button(start_button_coords)
+def the_loop():
+    print("checking")
 
-if check_start_mission_btn():
-    print("click start mission button")
-    click_button(start_mission_button_coords)
+    # take a screenshot 
+    result = device.screencap()
+    with open(screenshot_path, "wb") as fp:
+        fp.write(result)
 
-if check_three_stars():
-    print("three stars are visible")
-    click_button(three_stars_coords)
+    # load the screenshot image
+    screenshot = Image.open(screenshot_path)
 
+    if check_btn(screenshot, start_button, start_button_coords):
+        print("click start button")
+        # click_button(start_button_coords)
 
+    if check_btn(screenshot, start_mission_button, start_mission_button_coords):
+        print("click start mission button")
+        # click_button(start_mission_button_coords)
 
+    if check_btn(screenshot, three_stars, three_stars_coords):
+        print("three stars are visible")
+        # click_button(three_stars_coords)
 
-
+while True:
+    time.sleep(5)
+    the_loop()
+    # print("looped")
