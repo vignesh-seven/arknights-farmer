@@ -16,8 +16,8 @@ screenshot_path = screenshots + "\screen.png"
 # reference image paths
 path_start_button = pwd + "\\reference-images\start_btn.png"
 start_button = Image.open(path_start_button)
-path_start_button_2 = pwd + "\\reference-images\start_btn_2.png"
-start_button_2 = Image.open(path_start_button_2)
+# path_start_button_2 = pwd + "\\reference-images\start_btn_2.png"
+# start_button_2 = Image.open(path_start_button_2)
 path_start_mission_button = pwd + "\\reference-images\start_mission_btn.png"
 start_mission_button = Image.open(path_start_mission_button)
 path_three_stars = pwd + "\\reference-images\\3-stars.png"
@@ -51,7 +51,7 @@ def check_btn(image, ref, ref_coords):
 
     match = pixelmatch(ref, ref_c, img_diff)
 
-    if match == 0:
+    if match < 2040:  # 2040 is to compensate for the sanity icon that appears on some stage's Start Button
         return True
 
 
@@ -91,9 +91,9 @@ def the_loop():
         print("Start Button found")
         click_button(start_button_coords)
 
-    elif check_btn(screenshot, start_button_2, start_button_coords):
-        print("Start Button found")
-        click_button(start_button_coords)
+    # elif check_btn(screenshot, start_button_2, start_button_coords):
+    #     print("Start Button found")
+    #     click_button(start_button_coords)
 
     elif check_btn(screenshot, start_mission_button, start_mission_button_coords):
         print("Start Mission Button found")
