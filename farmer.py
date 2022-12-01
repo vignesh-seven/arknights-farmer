@@ -1,6 +1,4 @@
 import time
-start_time = time.time()
-
 import os
 import random
 from ppadb.client import Client
@@ -39,9 +37,6 @@ if not os.path.exists(screenshots):
     os.mkdir(screenshots)
     print("Created the screenshots folder")
 
-
-    # print("screenshot taken!")
-
 # tap cords  (ON A 720P WINDOW)
     # Start: 1120 670
     # Team selection: 1100 500
@@ -64,29 +59,6 @@ def check_btn(image, ref, ref_coords):
     if match == 0:
         return True
 
-# def check_start_mission_btn():
-#     # mask for matching
-#     img_diff = Image.new("RGBA", start_mission_button.size)
-
-#     # start searching for buttons on screen
-#     start_mission_button_c = screenshot.crop(start_mission_button_coords)
-
-#     match = pixelmatch(start_mission_button, start_mission_button_c, img_diff)
-
-#     if match == 0:
-#         return True
-
-# def check_three_stars():
-#     # mask for matching
-#     img_diff = Image.new("RGBA", three_stars.size)
-
-#     # start searching for buttons on screen
-#     three_stars_c = screenshot.crop(three_stars_coords)
-
-#     match = pixelmatch(three_stars, three_stars_c, img_diff)
-
-#     if match == 0:
-#         return True
 
 def click_button(coords):
     # print("--- %s seconds ---" % (time.time() - start_time))
@@ -104,15 +76,11 @@ def click_button(coords):
         random.randint(0, w) + coords[0],  
         random.randint(0, h) + coords[1]
     )
-    # print(coords)
-    # print(click_cords)
+
     # CLICK!
     device.shell(f"input tap {click_cords[0]} {click_cords[1]}")
 
-# while True:
-# print("waiting")
-# time.sleep(5)
-# print("running")
+
 def the_loop():
     print("checking")
 
