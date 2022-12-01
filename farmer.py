@@ -5,13 +5,13 @@ from ppadb.client import Client
 from PIL import Image
 from pixelmatch.contrib.PIL import pixelmatch
 
+# max delay between on-screen event and a click
+max_delay = 10
+
 os.system("adb start-server")
 pwd = os.getcwd()
 screenshots = pwd + "\screenshots"
 screenshot_path = screenshots + "\screen.png"
-
-# max delay between on-screen event and a click
-max_delay = 10
 
 # reference image paths
 path_start_button = pwd + "\\reference-images\start_btn.png"
@@ -37,15 +37,6 @@ if not os.path.exists(screenshots):
     os.mkdir(screenshots)
     print("Created the screenshots folder")
 
-# tap cords  (ON A 720P WINDOW)
-    # Start: 1120 670
-    # Team selection: 1100 500
-
-# adb shell input tap x y
-# device.shell("echo hello world !")
-
-
-
 # check for start button
 def check_btn(image, ref, ref_coords):
     # mask for matching
@@ -65,6 +56,7 @@ def click_button(coords):
 
     # wait for random time
     delay = random.randint(1, max_delay)
+    print("Clicking in", delay, "seconds...")
     time.sleep(delay)
 
     # width and height of the buttons space
@@ -76,13 +68,12 @@ def click_button(coords):
         random.randint(0, w) + coords[0],  
         random.randint(0, h) + coords[1]
     )
-
+    
     # CLICK!
     device.shell(f"input tap {click_cords[0]} {click_cords[1]}")
 
-
 def the_loop():
-    print("checking")
+    print("Checking...")
 
     # take a screenshot 
     result = device.screencap()
@@ -93,20 +84,19 @@ def the_loop():
     screenshot = Image.open(screenshot_path)
 
     if check_btn(screenshot, start_button, start_button_coords):
-        print("click start button")
+        print("Start Button found")
         click_button(start_button_coords)
 
     elif check_btn(screenshot, start_mission_button, start_mission_button_coords):
-        print("click start mission button")
+        print("Start Mission Button found")
         click_button(start_mission_button_coords)
 
     elif check_btn(screenshot, three_stars, three_stars_coords):
-        print("three stars are visible")
+        print("Three Stars found")
         click_button(three_stars_coords)
     else:
-        print("nothing found")
+        print("Nothing found")
 
 while True:
     time.sleep(5)
     the_loop()
-    # print("looped")
