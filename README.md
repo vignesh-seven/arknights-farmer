@@ -8,6 +8,7 @@ I have added some random delays between clicks and random offsets to the positio
 
 ## Dependencies
  - ADB
+ - Python
  - Python libraries: ppadb, pixelmatch
  ```
 pip install pure-python-adb
